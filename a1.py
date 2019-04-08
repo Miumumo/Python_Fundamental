@@ -13,7 +13,7 @@ def seconds_difference(time_1, time_2):
     >>> seconds_difference(1800.0, 1800.0)
     0.0
     """
-    
+    return time_2 - time_1
 
 
 def hours_difference(time_1, time_2):
@@ -31,7 +31,7 @@ def hours_difference(time_1, time_2):
     >>> hours_difference(1800.0, 1800.0)
     0.0
     """
-
+    return seconds_difference(time_1, time_2)/3600
 
 
 def to_float_hours(hours, minutes, seconds):
@@ -49,7 +49,7 @@ def to_float_hours(hours, minutes, seconds):
     >>> to_float_hours(1, 0, 36)
     1.01
     """
-
+    return hours + minutes/60 + seconds/3600
 
 
 def to_24_hour_clock(hours):
@@ -78,17 +78,59 @@ def to_24_hour_clock(hours):
 
 ### Write your get_hours function definition here:
 
+def get_hours(seconds):
+    """(int) -> int
 
+    Return the whole number of the given seconds divide by 3600 which will give the number of hours
+    
+    >>> get_hours(3800)
+    1
+    >>> get_hours(2400)
+    0
+    >>> get_hours(7200)
+    2
+    """
+
+    seconds = int(seconds)
+    return seconds // 3600
 
 
 ### Write your get_minutes function definition here:
 
+def get_minutes(seconds):
+    """(int) -> int
 
+    Return the remain number of minutes from the given seconds after deducting the hours of seconds
+
+    >>> get_minutes(3800)
+    3
+    >>> get_minutes(2400)
+    40
+    >>> getminutes(7200)
+    0
+    """
+
+    seconds = int(seconds)
+    return (seconds % 3600) // 60
 
 
 ### Write your get_seconds function definition here:
 
+def get_seconds(seconds):
+    """(int) -> int
 
+    Return the remain number of seconds after deducting the corresponding hours and minutes
+
+    >>> get_seconds(3800)
+    20
+    >>> get_seconds(2400)
+    0
+    >>> get_seconds(100)
+    40
+    """
+
+    seconds = int(seconds)
+    return (seconds % 3600) % 60
 
 
 def time_to_utc(utc_offset, time):
@@ -111,6 +153,7 @@ def time_to_utc(utc_offset, time):
     0.0
     """
 
+    return (time - utc_offset) % 24
 
 
 def time_from_utc(utc_offset, time):
@@ -136,4 +179,5 @@ def time_from_utc(utc_offset, time):
     0.0
     """
 
+    return (time + utc_offset + 24) % 24
 
